@@ -1,0 +1,147 @@
+import { Avatar, Grid, Link, Typography } from "@mui/material";
+import { Stack } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+
+const Userdetails = ({ ...props }) => {
+  let [data, setData] = useState({});
+
+  const getdetails = async () => {
+    const response = await fetch(
+      `https://api.github.com/users/${props.username}`
+    );
+    const data = await response.json();
+    console.log(data);
+    setData(data);
+  };
+
+  useEffect(() => {
+    getdetails();
+  }, []);
+
+  return (
+    <>
+      <Grid container width="100%">
+        <Grid
+          item
+          md="4"
+          sm="12"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Avatar
+            alt="Remy Sharp"
+            src={data.avatar_url ? data.avatar_url : ""}
+            sx={{
+              width: 150,
+              height: 150,
+              border: "2px solid black",
+              marginTop: { md: 0, xs: 2 },
+              marginLeft: { md: 0, xs: 4 },
+            }}
+          />
+        </Grid>
+        <Grid item md="8" sm="12">
+          <Stack spacing={2} mt={5}>
+            <Typography
+              variant="h6"
+              textAlign="start"
+              component="h2"
+              sx={{
+                pl: {
+                  md: 10,
+                  xs: 4,
+                },
+              }}
+            >
+              {data.login ? data.login : ""}
+            </Typography>
+
+            <Typography
+              variant="h6"
+              textAlign="start"
+              component="h2"
+              sx={{
+                pl: {
+                  md: 10,
+                  xs: 4,
+                },
+              }}
+            >
+              {data.bio ? data.bio : "no bio"}
+            </Typography>
+
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{
+                pl: {
+                  md: 10,
+                  xs: 4,
+                },
+              }}
+            >
+              <LocationOnIcon />
+              <Typography variant="h6" component="h2">
+                {data.location ? data.location : "no location avaliable"}
+              </Typography>
+            </Stack>
+
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{
+                pl: {
+                  md: 10,
+                  xs: 4,
+                },
+              }}
+            >
+              <Typography variant="text" component="h4">
+                Twitter:
+              </Typography>
+              <Link
+                href={`https://twitter.com/${data.twitter_username}`}
+                underline="hover"
+              >
+                {data.twitter_username
+                  ? `https://twitter.com/${data.twitter_username}`
+                  : "no twiter"}
+              </Link>
+            </Stack>
+          </Stack>
+        </Grid>
+
+        <Grid
+          xs={12}
+          mt={5}
+          mb={5}
+          sx={{
+            pl: {
+              md: 10,
+              xs: 4,
+            },
+          }}
+        >
+          <Stack direction="row" spacing={{md:2,sm:0}} sx={{
+            pl: {
+              md: 10,
+              sm: 0,
+            },
+          }}>
+            <InsertLinkIcon />
+            <Link href={data.html_url} underline="hover">
+              {data.html_url}
+            </Link>
+          </Stack>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+
+export default Userdetails;

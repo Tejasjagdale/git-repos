@@ -1,11 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import Container from "@mui/material/Container";
-import { Avatar, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import "@fontsource/roboto/700.css";
 import { Stack } from "@mui/system";
 import BIRDS from "vanta/dist/vanta.net.min";
+import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Home = () => {
+  const [name, setName] = useState("");
   const [vantaEffect, setVantaEffect] = useState(null);
   const myRef = useRef(null);
   useEffect(() => {
@@ -21,6 +30,12 @@ const Home = () => {
     };
   }, [vantaEffect]);
 
+  let navigate = useNavigate();
+
+  const searchUser = () => {
+    navigate(`/${name}`);
+  };
+
   return (
     <>
       <div ref={myRef}>
@@ -29,6 +44,7 @@ const Home = () => {
           style={{
             height: "100vh",
             display: "flex",
+            color: "white",
             justifyContent: "center",
             alignItems: "center",
             // backgroundColor: "blue",
@@ -37,8 +53,8 @@ const Home = () => {
           <Stack justifyContent="center" alignItems="center" spacing={2}>
             <Avatar
               alt="Remy Sharp"
-              src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-              sx={{ width: 75, height: 75 }}
+              src="https://pnggrid.com/wp-content/uploads/2022/03/Github-Logo-White.png"
+              sx={{ width: 75, height: 75, background: "black" }}
               mb="2"
             />
 
@@ -47,13 +63,31 @@ const Home = () => {
               username to get your public Repositories lists.
             </Typography>
 
-            <TextField
-              id="outlined-basic"
-              label="Enter-Username"
-              variant="outlined"
-              mb="2"
-              maxWidth="50%"
-            />
+            <Stack direction="row" spacing={0}>
+              <TextField
+                id="outlined-basic"
+                label="Enter-Username"
+                variant="outlined"
+                mb="2"
+                maxWidth="50%"
+                style={{ color: "white", background: "white" }}
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  // eslint-disable-next-line no-unused-expressions
+                  e.key === "Enter" ? searchUser() : null
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={searchUser}
+                startIcon={<SearchIcon />}
+              >
+                Search
+              </Button>
+            </Stack>
           </Stack>
         </Container>
       </div>
