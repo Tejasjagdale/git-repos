@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Chip, Grid, Pagination } from "@mui/material";
+import { Chip, Grid, Pagination, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -43,7 +43,7 @@ const Repolist = ({ ...props }) => {
   return (
     <>
       <Grid container spacing={10} p={5}>
-        {repolist.length
+        {repolist.length !== 0
           ? repolist.map((data, index) => {
               return (
                 <Grid item xs="12" md="6" key={`card${index}`}>
@@ -51,7 +51,11 @@ const Repolist = ({ ...props }) => {
                 </Grid>
               );
             })
-          : ""}
+          : <Grid item xs="12">
+            <Typography variant="h5" component="div">
+                No Public Repositories
+            </Typography>
+          </Grid> }
       </Grid>
 
       <Grid container>

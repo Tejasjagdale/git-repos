@@ -5,6 +5,7 @@ import { ThemeProvider } from "@emotion/react";
 import Home from "./pages/Home";
 import Repos from "./pages/Repos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Error404 from "./pages/Error404";
 
 const theme = createTheme({
   palette: {
@@ -23,6 +24,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
+            <Route path='*' element={<Error404 />} />
             <Route path="/" element={<Home />} />
             <Route path="/:username" element={<Repos />} />
           </Routes>
