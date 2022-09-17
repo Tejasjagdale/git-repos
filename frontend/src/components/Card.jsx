@@ -1,9 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar, Chip, Link, Stack } from "@mui/material";
 import { useState } from "react";
@@ -39,11 +37,11 @@ export default function BasicCard({ ...props }) {
             : "no description avaliable"}
         </Typography>
 
-        <Stack direction="row" spacing={1} sx={{ mb: 0 }}>
-          <Typography textAlign="start" sx={{ mb: 1.5 }} color="text.secondary">
+        <Stack direction={{md:"row",xs:"column"}} spacing={1} sx={{ mb: 1.5 }}>
+          <Typography textAlign="start" color="text.secondary">
             owner :
           </Typography>
-          <Stack direction="row" spacing={1}>
+          <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
             <Avatar
               alt="Remy Sharp"
               src={props.data.owner ? props.data.owner.avatar_url : ""}
@@ -51,7 +49,6 @@ export default function BasicCard({ ...props }) {
             />
             <Typography
               textAlign="start"
-              sx={{ mb: 1.5 }}
               color="text.secondary"
             >
               <Link href={props.data.owner.html_url} underline="hover" color="text.secondary">
@@ -61,7 +58,7 @@ export default function BasicCard({ ...props }) {
           </Stack>
         </Stack>
 
-        <Stack direction="row" spacing={1}>
+        <Stack direction={{md:"row",xs:"column"}} spacing={1}>
           <Typography textAlign="start" sx={{ mb: 1.5 }} color="text.secondary">
             languages :
           </Typography>

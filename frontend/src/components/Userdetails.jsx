@@ -18,14 +18,15 @@ const Userdetails = ({ ...props }) => {
 
   useEffect(() => {
     getdetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <Grid container width="100%">
+      <Grid container>
         <Grid
           item
-          md="4"
+          md="2"
           sm="12"
           style={{
             display: "flex",
@@ -40,12 +41,12 @@ const Userdetails = ({ ...props }) => {
               width: 150,
               height: 150,
               border: "2px solid black",
-              marginTop: { md: 0, xs: 2 },
-              marginLeft: { md: 0, xs: 4 },
+              marginTop: { md: 2, xs: 2 },
+              marginLeft: { md: 4, xs: 4 },
             }}
           />
         </Grid>
-        <Grid item md="8" sm="12">
+        <Grid item md="10" sm="12">
           <Stack spacing={2} mt={5}>
             <Typography
               variant="h6"
@@ -104,14 +105,16 @@ const Userdetails = ({ ...props }) => {
               <Typography variant="text" component="h4">
                 Twitter:
               </Typography>
-              <Link
-                href={`https://twitter.com/${data.twitter_username}`}
-                underline="hover"
-              >
-                {data.twitter_username
-                  ? `https://twitter.com/${data.twitter_username}`
-                  : "no twiter"}
-              </Link>
+              <Typography variant="text" component="h4">
+                <Link
+                  href={`https://twitter.com/${data.twitter_username}`}
+                  underline="hover"
+                >
+                  {data.twitter_username
+                    ? `https://twitter.com/${data.twitter_username}`
+                    : "no twiter"}
+                </Link>
+              </Typography>
             </Stack>
           </Stack>
         </Grid>
@@ -127,12 +130,7 @@ const Userdetails = ({ ...props }) => {
             },
           }}
         >
-          <Stack direction="row" spacing={{md:2,sm:0}} sx={{
-            pl: {
-              md: 10,
-              sm: 0,
-            },
-          }}>
+          <Stack direction="row" spacing={{ md: 2, sm: 0 }}>
             <InsertLinkIcon />
             <Link href={data.html_url} underline="hover">
               {data.html_url}

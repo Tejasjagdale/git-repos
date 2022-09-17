@@ -3,13 +3,12 @@ import Container from "@mui/material/Container";
 import {
   Avatar,
   Button,
-  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
 import "@fontsource/roboto/700.css";
 import { Stack } from "@mui/system";
-import BIRDS from "vanta/dist/vanta.net.min";
+import BIRDS from "vanta/dist/vanta.waves.min";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -59,7 +58,7 @@ const Home = () => {
             />
 
             <Typography variant="h4" component="h2" mb="20">
-              Enter your <span style={{ color: "greenyellow" }}>GitHub</span>{" "}
+              Enter your <span style={{ color: "black" }}>GitHub</span>{" "}
               username to get your public Repositories lists.
             </Typography>
 
