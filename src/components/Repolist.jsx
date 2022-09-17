@@ -39,7 +39,7 @@ const Repolist = ({ ...props }) => {
   }, []);
 
   useEffect(() => {
-    setIsloading(true)
+    setIsloading(true);
     getRepos(page);
   }, [page]);
 
@@ -49,7 +49,7 @@ const Repolist = ({ ...props }) => {
         {repolist.length !== 0 ? (
           repolist.map((data, index) => {
             return (
-              <Grid item xs="12" md="6" key={`card${index}`}>
+              <Grid item xs={12} md={6} key={`card${index}`}>
                 <BasicCard isloading={Isloading} data={data} />
               </Grid>
             );
@@ -65,6 +65,7 @@ const Repolist = ({ ...props }) => {
 
       <Grid container>
         <Grid
+        item
           xs={12}
           style={{
             display: "flex",
@@ -91,6 +92,7 @@ const Repolist = ({ ...props }) => {
         </Grid>
 
         <Grid
+          item
           xs={12}
           style={{
             display: "flex",

@@ -12,7 +12,6 @@ const Userdetails = ({ ...props }) => {
       `https://api.github.com/users/${props.username}`
     );
     const data = await response.json();
-    console.log(data);
     setData(data);
   };
 
@@ -26,8 +25,8 @@ const Userdetails = ({ ...props }) => {
       <Grid container>
         <Grid
           item
-          md="2"
-          sm="12"
+          md={2}
+          sm={12}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -46,7 +45,7 @@ const Userdetails = ({ ...props }) => {
             }}
           />
         </Grid>
-        <Grid item md="10" sm="12">
+        <Grid item md={10} sm={12}>
           <Stack spacing={2} mt={5}>
             <Typography
               variant="h6"
@@ -66,6 +65,7 @@ const Userdetails = ({ ...props }) => {
               variant="h6"
               textAlign="start"
               component="h2"
+              color="text.secondary"
               sx={{
                 pl: {
                   md: 10,
@@ -87,7 +87,7 @@ const Userdetails = ({ ...props }) => {
               }}
             >
               <LocationOnIcon />
-              <Typography variant="h6" component="h2">
+              <Typography color="text.secondary" variant="h6" component="h2">
                 {data.location ? data.location : "no location avaliable"}
               </Typography>
             </Stack>
@@ -102,7 +102,7 @@ const Userdetails = ({ ...props }) => {
                 },
               }}
             >
-              <Typography variant="text" component="h4">
+              <Typography color="text.secondary" variant="text" component="h4">
                 Twitter:
               </Typography>
               <Typography variant="text" component="h4">
@@ -120,6 +120,7 @@ const Userdetails = ({ ...props }) => {
         </Grid>
 
         <Grid
+          item
           xs={12}
           mt={5}
           mb={5}

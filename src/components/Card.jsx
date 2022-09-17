@@ -10,12 +10,13 @@ export default function BasicCard({ ...props }) {
   let [languages, setLanguages] = useState([]);
 
   const getdetails = async () => {
-    const response = await fetch(
-      `https://api.github.com/repos/${props.data.owner.login}/${props.data.name}/languages`
-    );
-    const data = await response.json();
-    console.log(data);
-    setLanguages(data);
+    if (props.data.owner) {
+      const response = await fetch(
+        `https://api.github.com/repos/${props.data.owner.login}/${props.data.name}/languages`
+      );
+      const data = await response.json();
+      setLanguages(data);
+    }
   };
 
   React.useEffect(() => {
@@ -26,7 +27,7 @@ export default function BasicCard({ ...props }) {
     <Card sx={{ minWidth: 150, minHeight: 180 }} elevation={3}>
       <CardContent>
         {props.isloading ? (
-          <Skeleton  animation="wave" />
+          <Skeleton animation="wave" />
         ) : (
           <Typography
             textAlign="start"
@@ -44,7 +45,7 @@ export default function BasicCard({ ...props }) {
         )}
 
         {props.isloading ? (
-          <Skeleton  animation="wave" />
+          <Skeleton animation="wave" />
         ) : (
           <Typography textAlign="start" sx={{ mb: 2 }} color="text.secondary">
             {props.data.description
@@ -54,7 +55,7 @@ export default function BasicCard({ ...props }) {
         )}
 
         {props.isloading ? (
-          <Skeleton  animation="wave" />
+          <Skeleton animation="wave" />
         ) : (
           <Stack
             direction={{ md: "row", xs: "column" }}
@@ -104,7 +105,7 @@ export default function BasicCard({ ...props }) {
             </Typography>
             <Stack direction="row" spacing={1}>
               {Object.keys(languages).map((key) => {
-                return <Chip label={key} color="primary" />;
+                return <Chip key={key} label={key} color="primary" />;
               })}
             </Stack>
           </Stack>
