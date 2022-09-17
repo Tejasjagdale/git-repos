@@ -6,7 +6,8 @@ import { useState } from "react";
 import BasicCard from "./Card";
 
 const Repolist = ({ ...props }) => {
-  let [repolist, setRepolist] = useState([]);
+  let [repolist, setRepolist] = useState([1, 2, 3, 4]);
+  let [Isloading, setIsloading] = useState(true);
   let [data, setData] = useState({});
   const [page, setPage] = React.useState(1);
 
@@ -29,6 +30,7 @@ const Repolist = ({ ...props }) => {
 
     const data = await response.json();
     setRepolist(data);
+    setIsloading(false);
   };
 
   useEffect(() => {
@@ -37,25 +39,28 @@ const Repolist = ({ ...props }) => {
   }, []);
 
   useEffect(() => {
+    setIsloading(true)
     getRepos(page);
   }, [page]);
 
   return (
     <>
       <Grid container spacing={10} p={5}>
-        {repolist.length !== 0
-          ? repolist.map((data, index) => {
-              return (
-                <Grid item xs="12" md="6" key={`card${index}`}>
-                  <BasicCard data={data} />
-                </Grid>
-              );
-            })
-          : <Grid item xs="12">
+        {repolist.length !== 0 ? (
+          repolist.map((data, index) => {
+            return (
+              <Grid item xs="12" md="6" key={`card${index}`}>
+                <BasicCard isloading={Isloading} data={data} />
+              </Grid>
+            );
+          })
+        ) : (
+          <Grid item xs="12">
             <Typography variant="h5" component="div">
-                No Public Repositories
+              No Public Repositories
             </Typography>
-          </Grid> }
+          </Grid>
+        )}
       </Grid>
 
       <Grid container>
@@ -71,9 +76,11 @@ const Repolist = ({ ...props }) => {
         >
           <Pagination
             count={
-              data.public_repos % 4 > 0
-                ? Math.floor(data.public_repos / 4) + 1
-                : Math.floor(data.public_repos / 4)
+              data.public_repos
+                ? data.public_repos % 4 > 0
+                  ? Math.floor(data.public_repos / 4) + 1
+                  : Math.floor(data.public_repos / 4)
+                : 0
             }
             color="primary"
             shape="rounded"

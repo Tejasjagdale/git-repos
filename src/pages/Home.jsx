@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Container from "@mui/material/Container";
-import {
-  Avatar,
-  Button,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Avatar, Button, TextField, Typography } from "@mui/material";
 import "@fontsource/roboto/700.css";
 import { Stack } from "@mui/system";
 import BIRDS from "vanta/dist/vanta.waves.min";
@@ -15,6 +10,8 @@ import SearchIcon from "@mui/icons-material/Search";
 const Home = () => {
   const [name, setName] = useState("");
   const [vantaEffect, setVantaEffect] = useState(null);
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
   const myRef = useRef(null);
   useEffect(() => {
     if (!vantaEffect) {
@@ -31,12 +28,29 @@ const Home = () => {
 
   let navigate = useNavigate();
 
-  const searchUser = () => {
-    navigate(`/${name}`);
+  const searchUser = async () => {
+    const response = await fetch(`https://api.github.com/users/${name}`);
+    if (response.status === 200) {
+      navigate(`/${name}`);
+    } else if(response.status === 400){
+      setAlertContent("This username dosent exist!");
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000)
+    }else{
+      setAlertContent("Something went wrong!");
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000)
+    }
   };
 
   return (
     <>
+      {alert ? <Alert variant="filled" severity="error">{alertContent}</Alert> : <></>}
+
       <div ref={myRef}>
         <Container
           maxWidth="md"
@@ -58,8 +72,8 @@ const Home = () => {
             />
 
             <Typography variant="h4" component="h2" mb="20">
-              Enter your <span style={{ color: "black" }}>GitHub</span>{" "}
-              username to get your public Repositories lists.
+              Enter your <span style={{ color: "black" }}>GitHub</span> username
+              to get your public Repositories lists.
             </Typography>
 
             <Stack direction="row" spacing={0}>
@@ -76,7 +90,7 @@ const Home = () => {
                 }}
                 onKeyDown={(e) => {
                   // eslint-disable-next-line no-unused-expressions
-                  e.key === "Enter" ? searchUser() : null
+                  e.key === "Enter" ? searchUser() : null;
                 }}
               />
               <Button
