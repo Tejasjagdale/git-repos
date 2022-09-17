@@ -1,7 +1,7 @@
 ﻿Assumption made:
 1. only public repo are to be fetched (as we have only username).
 
-(https://git-repos.vercel.app/)[click here] to vist the histed site.
+[click here](https://git-repos.vercel.app) to vist the histed site.
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
